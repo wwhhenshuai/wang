@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <body>
+    <input type="text" placeholder="新闻标题" id="one"><br>
+    <input type="text" placeholder="新闻内容" id="two"><br>
+    <input type="text" placeholder="发布作者" id="three"><br>
+    <button>添加</button>
+    </body>
+    <script>
+    $(function(){
+        $('button').click(function(){
+            var tit=$('#one').val();
+            var con=$('#two').val();
+            var zuo=$('#three').val();
+            $.ajax({
+            url:'http://localhost:3000/item/add',
+            type:'POST',
+            data:{
+                a:tit,
+                b:con,
+                c:zuo
+            },
+            success:function(data){
+                console.log(data)
+                window.location.href='index.html';
+            }
+        })
+        })
+    })
+    </script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background:lime;
+    }
+    .box{
+        width: 600px;
+        height: 600px;
+        background:#666;
+        margin: 0 auto;
+        margin-top: 20px;
+        overflow:scroll;
+        overflow-x:hidden;
+        padding: 10px;
+    }
+        .kuai{
+            width: 500px;
+            margin: 0 auto;
+            margin-top: 20px;
+            border:2px solid white;
+        }
+        .kuai>p{
+
+        }
+    </style>
+    <body>
+    <div class="box">
+        
+    </div>
+    </body>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script>
+    $(function(){
+        $.ajax({
+            url:"http://localhost:3000/item/shuju",
+            type:'POST',
+            success:function(data){
+                console.log(data)
+                for(i in data){
+                    $('.box').append("<div class='kuai'><p>新闻标题:"+data[i].name+"</p><p>新闻内容:"+data[i].textname+"</p><p>发布作者:"+data[i].text+"</p><button class='but' data-id="+data[i].id+">删除</button></div>")
+                }
+               $('.but').click(function(){
+                    var id=$(this).attr('data-id');
+                    var _this=$(this);
+                    $.ajax({
+                        url:'http://localhost:3000/item/shan',
+                        type:'POST',
+                        data:{'id':id},
+                        success:function(e){
+                            _this.parent().remove()
+
+                        }
+                    })
+            })  
+        }
+    })
+    })
+    </script>
+</html>
